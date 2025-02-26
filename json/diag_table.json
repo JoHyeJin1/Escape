@@ -1,0 +1,28 @@
+[
+	{
+    "scene" : "stay",
+		"dialogue" : "와 이거 칠면조잖아! 영화에서나 봤던 건데...",
+		"sound" : "sound/scene5-6.mp3"
+	},
+	{
+    "scene" : "stay",
+		"dialogue" : "칠면조를 꼭 한 번 먹어보고 싶었는데!",
+		"sound" : "sound/scene5-6.mp3"
+	},
+	{
+    "scene" : "stay",
+		"dialogue" : "흠흠~ 칠면조도 먹어보고 좋네!",
+		"sound" : "sound/scene5-6.mp3"
+	},
+	{
+    "scene" : "change",
+    "background" : "image/dialogue_blood.png",
+		"dialogue" : "이건 칠면조 다리가 아니잖아 이건.......",
+		"sound" : "sound/scene8-9.mp3"
+	},
+  {
+    "scene" : "stay",
+    "dialogue" : "이건........",
+    "sound" : "sound/scene8-9.mp3"
+  }
+]

@@ -1,6 +1,6 @@
 local composer = require( "composer" )
 local scene = composer.newScene()
-
+-----
 function scene:create( event )
 	local sceneGroup = self.view
 	local text = display.newText("당신을 도울 세 친구! 총알 세 발이 당신을 안내할 것입니다.", display.contentWidth/2, display.contentHeight*0.45)

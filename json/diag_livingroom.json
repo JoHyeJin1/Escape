@@ -1,0 +1,14 @@
+[
+	{
+		"dialogue" : "여기는 어디지?",
+		"sound" : "sound/scene5-6.mp3"
+	},
+	{
+		"dialogue" : "내가 여행 가고 싶긴 했나 봐. 이런 꿈을 다 꾸네.",
+		"sound" : "sound/scene5-6.mp3"
+	},
+	{
+		"dialogue" : "아 뭐 먹고 싶은데... 먹을 만한 건 어디 없나? 편의점 음식 말고 따듯하고 맛있는 거!",
+		"sound" : "sound/scene5-6.mp3"
+	}
+]

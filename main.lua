@@ -1,24 +1,44 @@
 -----------------------------------------------------------------------------------------
--------
+--
 -- main.lua
 --
 -----------------------------------------------------------------------------------------
 
--- show default status bar (iOS)
-display.setStatusBar( display.DefaultStatusBar )
+-- json parsing
+ local json = require "json"
+ local bgm = require "audio"
 
--- include Corona's "widget" library
-local widget = require "widget"
-local composer = require "composer"
+-- json parsing
+function jsonParse(src)
+	local filename = system.pathForFile(src)
 
+	local data, pos, msg = json.decodeFile(filename)
 
--- event listeners for tab buttons:
-local function onFirstView( event )
-	composer.gotoScene( "bookGame" )
+	if(data) then
+		return data
+	else
+		print("WARNING: "..pos, msg)
+		return nil
+	end
 end
 
+-- -- bgm loading
+-- local function load_sound(filename)
+--   return bgm.newSource(filename, "stream")
+-- end
 
+-- -- bgm playing
+-- local function play_sound(sound)
+--   if sound then
+--     sound:play()
+--   end
+-- end
+-- -- 
 
+local composer = require "composer"
 
+local function onFirstView( event )
+	composer.gotoScene( "diag_livingroom" )
+end
 
-onFirstView()	-- invoke first tab button's onPress event manually
+onFirstView()

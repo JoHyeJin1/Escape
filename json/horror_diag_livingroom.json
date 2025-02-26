@@ -1,0 +1,22 @@
+[
+	{
+		"dialogue" : "뭐야!",
+		"sound" : "sound/scene12_14.mp3"
+	},
+	{
+		"dialogue" : "무슨 일이 일어난 거지?",
+		"sound" : "sound/scene12_14.mp3"
+	},
+	{
+		"dialogue" : "총..? 총이 왜.. 여기에 있지...?",
+		"sound" : "sound/scene12_14.mp3"
+	},
+	{
+		"dialogue" : "총알 세 발? 내 머리에 박고 죽으라는 건가?",
+		"sound" : "sound/scene12_14.mp3"
+	},
+	{
+		"dialogue" : "일단 총알을 찾아보자. 찾아둬서 나쁘진 않을 거야.",
+		"sound" : "sound/scene12_14.mp3"
+	},
+]

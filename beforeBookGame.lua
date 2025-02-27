@@ -17,7 +17,7 @@ function scene:create( event )
 
 	-- 대화창 & 텍스트
     local dialogueBox, dialogueText = ui.createDialogueBox(sceneGroup)
-    ui.updateDialogueText(dialogueText, "책장에서 두 칸만 물건이 들어있네.")
+    ui.updateDialogueText(dialogueText, "한 칸만 조금 다른게 들어있네. 살펴보자")
 
     -- 대화창 클릭 이벤트 리스너
 	local function onDialogueBoxTap(event)

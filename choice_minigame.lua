@@ -73,18 +73,19 @@ function scene:create(event)
     
     
     -- 목숨(총알) 생성 -----------------------------------------------------------------------------------------
-    local success = composer.getVariable("success") or 0  -- 성공 횟수 가져오기 (nil 방지)
 
+   
+
+    -- 목숨(총알) 생성
     bulletGroup, bullets = ui.createBullets(sceneGroup)
     sceneGroup:insert(bulletGroup)
 
-    print("성공횟수 : " .. tostring(success))  -- 문자열 연결 오류 방지
+    -- -- 총알 아이콘 업데이트
+    -- for i = 1, success do
+        -- bullets[3].fill = { type = "image", filename = "image/UI/bullets/bullets_filled.png" }
+    -- end
 
-    -- 총알 아이콘 업데이트 함수
-    if 0 < success or success <= 3 then
-        bullets[success].alpha = 1  
-        bullets[success].fill = { type = "image", filename = "image/UI/bullets/bullets_filled.png" }
-    end
+    
 
 end
 
@@ -96,6 +97,15 @@ function scene:show(event)
             if scene.choice[i] and not disabledChoices[i] then
                 scene.choice[i].isVisible = true
             end
+        end
+        ----
+        local success = composer.getVariable("success") or 0  
+        print("성공 횟수 미니초이스: " .. tostring(success))
+        for i = 1, success do
+            bullets[i].fill = { type = "image", filename = "image/UI/bullets/bullets_filled.png" }
+        end
+        if success >= 3 then
+            composer.gotoScene("ending_Happy")
         end
     end
 end

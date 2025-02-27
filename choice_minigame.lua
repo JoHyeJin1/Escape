@@ -48,7 +48,7 @@ function scene:create(event)
 
     -- 선택지 버튼 3개 생성 (전역 `scene.choice`에 저장)
     scene.choice[1] = createChoiceButton(display.contentCenterX, display.contentCenterY + 180, "서재", "beforeBookGame")
-    scene.choice[2] = createChoiceButton(display.contentCenterX, display.contentCenterY + 240, "침실", "bedroom_main")
+    scene.choice[2] = createChoiceButton(display.contentCenterX, display.contentCenterY + 240, "침실", "bedroom_puzzle")
     scene.choice[3] = createChoiceButton(display.contentCenterX, display.contentCenterY + 300, "화장실", "beforePipeGame")
 
     -- sceneGroup에 추가

@@ -1,74 +1,106 @@
-local composer = require( "composer" )
+local composer = require("composer")
+local ui = require("ui")                --ui.lua 파일 불러오기기
+
 local scene = composer.newScene()
 
-function scene:create( event )
-	local sceneGroup = self.view
-	local text = display.newText("당신을 도울 세 친구! 총알 세 발이 당신을 안내할 것입니다.", display.contentWidth/2, display.contentHeight*0.45)
-	
-	-- paper
-	local paper = display.newRect(display.contentCenterX, display.contentCenterY, display.contentWidth/2, display.contentHeight*0.75)
+function scene:create(event)
+    local sceneGroup = self.view
+
+	-- BACKGROUND
+	local bg = display.newImage("Image/cutscene/black.png")
 	bg.x = display.contentCenterX
 	bg.y = display.contentCenterY
+	sceneGroup:insert(bg)
 
-	function title:tap( event )
- 		composer.hideOverlay('horror_diag_livingroom_paper')
- 	end
- 	paper:addEventListener("tap", paper)
-
- 	sceneGroup:insert(paper)
- 	sceneGroup:insert(text)
-end
-
-function scene:show( event )
-	local sceneGroup = self.view
-	local phase = event.phase
 	
-	if phase == "will" then
-		-- Called when the scene is still off screen and is about to move on screen
+	-- 📜 종이 이미지 (배경)
+	local paperImage = display.newRect(display.contentCenterX, display.contentCenterY, display.contentWidth * 0.6, display.contentHeight * 0.6)
+	paperImage:setFillColor(1, 1, 1) -- 흰색 배경
+	paperImage.alpha = 0.8 -- 투명도 조절
+	sceneGroup:insert(paperImage)
 
 
-	elseif phase == "did" then
-		-- Called when the scene is now on screen
-		-- 
-		-- INSERT code here to make the scene come alive
-		-- e.g. start timers, begin animation, play audio, etc.
-	end	
-end
-
-function scene:hide( event )
-	local sceneGroup = self.view
-	local phase = event.phase
+    -- 📜 종이 위의 텍스트
+    local paperText = display.newText({
+        text = "당신을 도울 세 친구!\n총알 세 발이 당신을 안내할 것입니다.",
+        x = display.contentCenterX,
+        y = display.contentCenterY,
+        width = display.contentWidth * 0.6,
+		paperImage:setFillColor(1, 1, 1), -- 흰색 배경
+        fontSize = 40,
+        align = "center"
+    })
+    paperText:setFillColor(0) -- 검은색
+    sceneGroup:insert(paperText)
 	
-	if event.phase == "will" then
-		-- Called when the scene is on screen and is about to move off screen
-		--
-		-- INSERT code here to pause the scene
-		-- e.g. stop timers, stop animation, unload sounds, etc.)
-		--composer.removeScene("dialogue")
+    -- 💬 대화창
+    local dialogueBox = display.newImage("Image/UI/dialogue/dialogue_blood.png") -- 대화창 이미지
+    dialogueBox.x = display.contentCenterX  
+    dialogueBox.y = display.contentHeight - 130
+    dialogueBox:scale(1, 0.65)
+    dialogueBox.isVisible = false -- 초반에 숨김
+    sceneGroup:insert(dialogueBox)
 	
-	elseif phase == "did" then
-		-- Called when the scene is now off screen
+    -- 💬 대화 텍스트
+    local content = display.newText({
+		text = "", 
+        x = display.contentWidth * 0.5 + 15, 
+        y = display.contentHeight - 105,
+        width = display.contentWidth - 120,
+        height = 200,
+        fontSize = 40,
+        align = "left"
+    })
+    content:setFillColor(1) -- 흰색 글씨
+    content.isVisible = false -- 초반에 숨김
+    sceneGroup:insert(content)
 	
+	-- 📜 종이를 터치하면 사라지는 이벤트
+	local function hidePaper()
+		paperImage.isVisible = false
+		paperText.isVisible = false
+		dialogueBox.isVisible = true
+		content.isVisible = true
+		paperImage:removeEventListener("tap", hidePaper)
+		
+		-- 목숨(총알) 생성
+		bulletGroup, bullets = ui.createBullets(sceneGroup)
+		sceneGroup:insert(bulletGroup)
+		
+		for i = 1, 3 do
+    	    bullets[i].x = display.contentWidth/2 + 200 - (i * 100)
+			bullets[i].y = display.contentCenterY - 100
+			bullets[i].alpha = 1 
+		end
+		
 	end
+	paperImage:addEventListener("tap", hidePaper)
+	
+    -- 💬 대사 데이터
+    local Data = {
+		"총알 세 발? 내 머리에 박고 죽으라는 건가?",
+        "...일단 총알을 찾아보자. 찾아둬서 나쁘진 않을 거야.",
+        "어딜 먼저 가지?"
+    }
+
+    local index = 0
+
+    -- 💬 대사 진행 함수
+    local function nextScript()
+        index = index + 1
+        if index > #Data then
+            composer.gotoScene("choice_minigame") -- 선택지 씬으로 이동
+            return
+        end
+        content.text = Data[index]
+    end
+
+    -- 💬 대화창 터치 시 대사 출력
+    dialogueBox:addEventListener("tap", nextScript)
+
+    sceneGroup:insert(dialogueBox)
+    sceneGroup:insert(content)
 end
 
-function scene:destroy( event )
-	local sceneGroup = self.view
-	composer.gotoScene("diag_table")
-	-- Called prior to the removal of scene's "view" (sceneGroup)
-	-- 
-	-- INSERT code here to cleanup the scene
-	-- e.g. remove display objects, remove touch listeners, save state, etc.
-end
-
----------------------------------------------------------------------------------
-
--- Listener setup
-scene:addEventListener( "create", scene )
-scene:addEventListener( "show", scene )
-scene:addEventListener( "hide", scene )
-scene:addEventListener( "destroy", scene )
-
------------------------------------------------------------------------------------------
-
+scene:addEventListener("create", scene)
 return scene

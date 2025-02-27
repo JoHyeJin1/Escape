@@ -47,7 +47,7 @@ function ui.createBullets(sceneGroup)
     
     for i = 1, 3 do
         bullets[i] = display.newImage("image/UI/bullets/bullets_empty.png")
-        bullets[i].x = display.contentWidth - (i * 70) - 30
+        bullets[i].x = display.contentWidth - (i * 100) - 30
         bullets[i].y = 100
         bullets[i].alpha = 1 
         bulletGroup:insert(bullets[i])

@@ -96,8 +96,8 @@ local function changeDialog()
 			end
 			index = index + 1
 			else
-				-- 초기 게임 선택지로 돌아가도록 변경 해야함
-				composer.gotoScene('bedroom_wrong', { effect = "fade", time = 400 })
+				-- 초기 게임 선택지로 돌아가기
+				composer.gotoScene('choice_minigame', { effect = "fade", time = 400 })
 	  		end
 	elseif failCount == 2 then
 		if index < 3 then
@@ -162,12 +162,12 @@ local function changeDialog()
 			end
 			index = index + 1
 	  else
-		-- 초기 게임 선택지로 돌아가도록 변경 해야함
-		composer.gotoScene('bedroom_wrong', { effect = "fade", time = 400 })
+		-- 초기 게임 선택지로 돌아가기
+		composer.gotoScene('choice_minigame', { effect = "fade", time = 400 })
 	  end
 	else
-		-- 배드엔딩으로 위치 변경 요청
-		-- composer.gotoScene('bedroom_puzzle', { effect = "fade", time = 400 })
+		-- 배드엔딩으로 위치 변경
+		composer.gotoScene('ending_Bad_diag', { effect = "fade", time = 400 })
 
 		content = display.newText({
 			text = "게임 끝났다 난 망했어",

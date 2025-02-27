@@ -31,6 +31,8 @@ function scene:create( event )
     })
 	content:setFillColor(1)
 	content.size = 30
+
+
 	
 	-- json에서 대사 데이터 불러오기  	 #10 - #11 산장 밖
 	
@@ -45,8 +47,8 @@ function scene:create( event )
 	local function nextScript( event )
 		
 		index = index + 1
-		if (index > #Data) then
-			composer.gotoScene("choice_minigame")
+		if (index > 3) then
+			composer.gotoScene("horror_diag_livingroom_paper")
 			return
 		end
 		bg.fill = {

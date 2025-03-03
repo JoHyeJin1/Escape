@@ -1,8 +1,14 @@
 local composer = require( "composer" )
 local scene = composer.newScene()
+
 ----살려주세요
 function scene:create( event )
 	local sceneGroup = self.view
+	----------------bgm-----------------------------
+	audio.pause(backgroundMusicChannel)
+	backgroundMusic = audio.loadStream("music/bgm/scene5-6.mp3")
+	backgroundMusicChannel = audio.play(backgroundMusic, {loops = -1})
+	audio.setVolume(0.3) ----------볼륨 0~1
 	
 	-- BACKGROUND
 	local bg = {}

@@ -9,6 +9,9 @@ local scene = composer.newScene()
 
 function scene:create( event )
 	local sceneGroup = self.view
+	audio.pause(backgroundMusicChannel)
+	backgroundMusic = audio.loadStream("music/bgm/scene5-6.mp3")
+	backgroundMusicChannel = audio.play(backgroundMusic, {loops=-1})
 	
     local temp = display.newText(
 		"게임에서 나왔습니다. \n NPC 게임 개발 해커톤 B팀 이었습니다.\n\n개.발.자 : 박슬기, 신희진, 조혜진, 최윤서\n기획 : 공선영, 권가현 \n디자인 : 곽현수"

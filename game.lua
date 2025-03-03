@@ -38,14 +38,6 @@ function scene:create(event)
         composer.gotoScene("company_scene")
     end)
 
-
-
-
-
-
-
-
-    
     -- 대화창 & 텍스트 생성
     dialogueBox, dialogueText = ui.createDialogueBox(sceneGroup)
 
@@ -62,12 +54,7 @@ function scene:create(event)
     dialogueBox:addEventListener("touch", onDialogueBoxTap)
 
     -- 이것저것. 스토리 진행 & 미니 게임들진행 --
-
-
-
-
-
-
+	
 -- 여기까지 정상 작동 ---------------------------------------------------------------------------------
 -- 여기부턴 큰 틀만 작성성
 

@@ -10,6 +10,10 @@ local scene = composer.newScene()
 function scene:create( event )
 	local sceneGroup = self.view
 
+	audio.pause(backgroundMusicChannel)
+	backgroundMusic = audio.loadStream("music/bgm/minigame.mp3")
+	backgroundMusicChannel = audio.play(backgroundMusic, {loops = -1})
+	audio.setVolume(0.3) ----------볼륨 0~1	
 
 	local background = display.newImageRect("image/bedroom/bedroom_puzzle_bg.png", display.contentWidth, display.contentHeight)
  	background.x, background.y = display.contentWidth/2, display.contentHeight/2

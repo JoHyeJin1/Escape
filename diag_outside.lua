@@ -3,7 +3,7 @@ local scene = composer.newScene()
 
 function scene:create( event )
 	local sceneGroup = self.view
-	
+
 	-- BACKGROUND
 	local bg = display.newImage("Image/cutscene/cutscene_8.png")
 	bg.x = display.contentCenterX
@@ -46,7 +46,8 @@ function scene:create( event )
 
 		if (index > #Data) then
 			composer.gotoScene("after_diag_outside")
-			composer.removeScene("diag_table")
+			-- composer.removeScene("diag_table")
+			composer.removeScene("diag_outside")
 			return
 		end
 
@@ -55,6 +56,15 @@ function scene:create( event )
 			filename = Data[index].bg
 		}
 		content.text = Data[index].dialogue
+
+		-------------------------------bgm--------------------------
+		if content.text == "살려주세요! 여기 누구 없어요!!!!" then
+			audio.stop(explosionChannel)
+			audio.stop(backgroundMusicChannel)
+			backgroundMusic = audio.loadStream("music/bgm/scene10_11.mp3")
+			backgroundMusicChannel = audio.play(backgroundMusic, {loops=-1})
+			audio.setVolume(0.7)
+		end
 	end
 	
 	dialogueBox:addEventListener("tap", nextScript)

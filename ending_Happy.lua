@@ -3,6 +3,11 @@ local scene = composer.newScene()
 
 function scene:create( event )
 	local sceneGroup = self.view
+
+	---------------------bgm--------------------------
+	audio.pause(backgroundMusicChannel)
+	backgroundMusic = audio.loadStream("music/bgm/scene10_11.mp3")
+	backgroundMusicChannel = audio.play(backgroundMusic, {loops=-1})
 	
 	-- BACKGROUND
 	local bg = display.newImage("Image/cutscene/black.png")
@@ -75,6 +80,13 @@ function scene:create( event )
 		-- }
         note.text = Data[index].text
         content.text = Data[index].dialogue
+
+		if content.text == "제발... 제발 밖으로 보내줘!!!!" then
+			-- local bg = audio.loadStream("music/effect/GunShots.wav")
+			-- local bgc = audio.play(backgroundMusic)
+			explosionSound = audio.loadSound("music/effect/GunShots.wav")
+			audio.play(explosionSound)
+		end
 	end
 	
 	dialogueBox:addEventListener("tap", nextScript)

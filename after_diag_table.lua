@@ -3,7 +3,22 @@ local scene = composer.newScene()
 
 function scene:create(event)
     local sceneGroup = self.view
+    -- 오디오 라이브러리
+    local currentBGM = backgroundMusicChannel  -- 현재 재생 중인 BGM 저장 변수
 
+    -- BGM 변경 함수
+    local function changeBGM(newBGM)
+        if currentBGM then
+            audio.stop(backgroundMusicChannel)  -- 기존 BGM 정지
+            audio.dispose(currentBGM)  -- 메모리 해제
+            currentBGM = nil
+        end
+
+        if newBGM and newBGM ~= "" then
+            currentBGM = audio.loadStream(newBGM)  -- 새 BGM 로드
+            audio.play(currentBGM, { loops = -1 })  -- 무한 반복 재생
+        end
+    end
     -- BACKGROUND
     local bg = display.newImage("image/cutscene/cutscene_4.png")
     bg.x = display.contentCenterX
@@ -61,7 +76,6 @@ function scene:create(event)
 		bg.x = display.contentCenterX  -- 배경의 x 좌표 설정
 		bg.y = display.contentCenterY  -- 배경의 y 좌표 설정
 		bg:toBack()  -- 배경을 뒤로 보이게 설정
-
 	    content.text = "이건 칠면조 다리가 아니잖아 이건, \n이건............!"
 		
 		timer.performWithDelay(1800, function()
@@ -82,6 +96,14 @@ function scene:create(event)
         bg.y = display.contentCenterY  -- 배경의 y 좌표 설정
         bg:toBack()  -- 배경을 뒤로 보이게 설정
     end)
+
+    ---------------------칠면조 다리 아닌 것 알았을 때, bgm---------------
+    if content.text == "이건 칠면조 다리가 아니잖아 이건, \n이건............!" then
+        explosionSound = audio.loadSound("music/effect/칠면조 먹는 소리(길어서 잘라야 돼요!).wav")
+        explosionChannel = audio.play(explosionSound, {loops=-1})
+        audio.setVolume(0.1, {channel = explosionChannel})
+        changeBGM("music/bgm/scene8-9.mp3")
+    end
 
     end
 

@@ -9,6 +9,10 @@ local scene = composer.newScene()
 
 function scene:create( event )
 	local sceneGroup = self.view
+	audio.pause(backgroundMusicChannel)
+	backgroundMusic = audio.loadStream("music/bgm/minigame.mp3")
+	backgroundMusicChannel = audio.play(backgroundMusic, {loops = -1})
+	audio.setVolume(0.3) ----------볼륨 0~1	
 
 	local timeAttack
 
@@ -131,10 +135,18 @@ function scene:create( event )
 			flag.alpha = 0
 		end
 	end
+	local clickSound = audio.loadSound("music/effect/미니게임 클릭음(파이프, 책장).wav")
+	local function playClickSound(event)
+		if event.phase=="began" then
+			audio.play(clickSound)
+		end
+		return true
+	end
 
 	for i=1,9 do
 		pipe[i]:addEventListener("tap", tapPipe)
 		pipe[i]:addEventListener("tap", judge)
+		pipe[i]:addEventListener("touch", playClickSound)
 	end
 
 	local bullet

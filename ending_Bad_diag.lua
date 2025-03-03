@@ -3,6 +3,9 @@ local scene = composer.newScene()
 
 function scene:create( event )
 	local sceneGroup = self.view
+	audio.pause(backgroundMusicChannel)
+	backgroundMusic = audio.loadStream("music/effect/BadEnding.mp3")
+	backgroundMusicChannel = audio.play(backgroundMusic, {loops=-1})
 	
 	-- BACKGROUND
 	local bg = display.newImage("Image/cutscene/black.png")

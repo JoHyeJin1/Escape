@@ -3,6 +3,12 @@ local scene = composer.newScene()
 
 function scene:create( event )
 	local sceneGroup = self.view
+	audio.pause(backgroundMusicChannel)
+	backgroundMusic = audio.loadStream("music/bgm/scene10_11.mp3")
+	backgroundMusicChannel = audio.play(backgroundMusic, {loops=-1})
+	explosionSound = audio.loadSound("music/effect/미니게임실패환청(짧아서 반복 필요).wav")
+	explosionChannel = audio.play(explosionSound, {loops=-1})
+	audio.setVolume(0.1, {channel=explosionChannel})
 	
 	-- BACKGROUND
 	local bg = display.newImage("Image/cutscene/black.png")

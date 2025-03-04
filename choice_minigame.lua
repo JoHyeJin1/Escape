@@ -59,7 +59,8 @@ function scene:create(event)
         
         return buttonGroup
     end
-    
+
+
     -- 선택지 버튼 생성 및 sceneGroup에 추가
     scene.choice[1] = createChoiceButton(1, display.contentCenterX, display.contentCenterY + 180, "서재", "beforeBookGame")
     scene.choice[2] = createChoiceButton(2, display.contentCenterX, display.contentCenterY + 240, "침실", "bedroom_puzzle")
@@ -73,18 +74,19 @@ function scene:create(event)
     
     
     -- 목숨(총알) 생성 -----------------------------------------------------------------------------------------
-    local success = composer.getVariable("success") or 0  -- 성공 횟수 가져오기 (nil 방지)
 
+   
+
+    -- 목숨(총알) 생성
     bulletGroup, bullets = ui.createBullets(sceneGroup)
     sceneGroup:insert(bulletGroup)
 
-    print("성공횟수 : " .. tostring(success))  -- 문자열 연결 오류 방지
+    -- -- 총알 아이콘 업데이트
+    -- for i = 1, success do
+        -- bullets[3].fill = { type = "image", filename = "image/UI/bullets/bullets_filled.png" }
+    -- end
 
-    -- 총알 아이콘 업데이트 함수
-    if 0 < success or success <= 3 then
-        bullets[success].alpha = 1  
-        bullets[success].fill = { type = "image", filename = "image/UI/bullets/bullets_filled.png" }
-    end
+    
 
 end
 
@@ -97,6 +99,27 @@ function scene:show(event)
                 scene.choice[i].isVisible = true
             end
         end
+        --------------------------------------------------------------------------------------------------
+        local success = composer.getVariable("success") or 0  
+        print("성공 횟수 미니초이스: " .. tostring(success))
+
+        -- 총알 채우기기
+        for i = 1, success do
+            bullets[i].fill = { type = "image", filename = "image/UI/bullets/bullets_filled.png" }
+        end
+
+        -- 3번다 성공하면 해피
+        if success >= 3 then
+            composer.gotoScene("ending_Happy", { effect = "fade", time = 400 })
+        end
+
+        ---------------------------------------------------------------------------------------------------
+        -- 게임 1 or 2회 실패시 엔딩
+        local gameCount = composer.getVariable( "gameCount" ) or 0
+        if gameCount == 3 and success ~= 3 then 
+            composer.gotoScene('ending_Failure_Note', { effect = "fade", time = 400 })
+        end
+        
     end
 end
 

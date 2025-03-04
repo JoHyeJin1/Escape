@@ -12,6 +12,10 @@ local scene = composer.newScene()
 
 function scene:create( event )
 	local sceneGroup = self.view
+
+	explosionSound = audio.loadSound("music/effect/Keyboard Typing Fast.wav")
+	explosionChannel = audio.play(explosionSound, {loops=-1})
+	audio.setVolume(0.5, {channel = explosionChannel})
 	
     -- BackGround
 	local bg = display.newImage("image/cutscene/company.png")

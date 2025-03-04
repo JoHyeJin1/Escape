@@ -3,6 +3,7 @@ local scene = composer.newScene()
 
 function scene:create( event )
 	local sceneGroup = self.view
+	audio.pause(explosionChannel)
 	
 	-- BACKGROUND
 	local bg = display.newImage("Image/cutscene/black.png")
@@ -45,7 +46,7 @@ function scene:create( event )
 		index = index + 1
 
 		if (index > #Data) then
-			composer.gotoScene("start")
+			composer.gotoScene("quit", { effect = "fade", time = 800 })
 			--composer.removeScene("diag_table")
 			return
 		end
@@ -55,6 +56,12 @@ function scene:create( event )
 			filename = Data[index].bg
 		}
 		content.text = Data[index].dialogue
+
+		if content.text == "탕!!!!!!!!!!!!!!!!!!!!!!!!!" then
+			explosionSound = audio.loadSound("music/effect/GunShots.wav")
+			explosionChannel = audio.play(explosionSound)
+			audio.setVolume(1.0, {channel=explosionChannel})
+		end
 	end
 	
 	dialogueBox:addEventListener("tap", nextScript)

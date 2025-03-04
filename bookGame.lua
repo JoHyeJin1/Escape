@@ -12,7 +12,11 @@ local timeAttack
 function scene:create( event )
 	local sceneGroup = self.view
 
-	
+	audio.pause(backgroundMusicChannel)
+	backgroundMusic = audio.loadStream("music/bgm/minigame.mp3")
+	backgroundMusicChannel = audio.play(backgroundMusic, {loops = -1})
+	audio.setVolume(0.3) ----------볼륨 0~1	
+
 	local bg = display.newImage("image/study/study_bg.png")
 	bg.x, bg.y = display.contentWidth/2, display.contentHeight/2
 
@@ -138,6 +142,12 @@ function scene:create( event )
 
 		-- 성공 시 처리
 	if score == 5 then
+		    -- 게임 실행시 카운트
+			 local gameCount = composer.getVariable( "gameCount" ) or 0
+			 gameCount = gameCount + 1
+			 composer.setVariable( "gameCount", gameCount )
+		
+			 print("게임 실행 횟수 : "..gameCount)
 		-- 모든 이벤트 제거
 		for i = 1, 5 do
 			book[i]:removeEventListener("tap", tapBook)
@@ -204,10 +214,20 @@ function scene:create( event )
 		end
 	end
 
+	--------------------책 누를때 소리 mp3파일은 너무 짧아서 solar2D가 인식을 못해서 wav 파일로 변환해서 넣어두었습니다!
+	local clickSound = audio.loadSound("music/effect/미니게임 클릭음(파이프, 책장).wav")
+	local function playClickSound(event)
+		if event.phase=="began" then
+			audio.play(clickSound)
+		end
+		return true
+	end
+
 	for i=1,5 do
 		book[i]:addEventListener("tap", tapBook) --책 선택하면 책이 조금 올라가게끔
 		book[i]:addEventListener("tap", switchBook) --선택한 두 권 위치 바꾸기
 		book[i]:addEventListener("tap", check) --5점 이상이면 게임 완료
+		book[i]:addEventListener("touch", playClickSound)
 	end
 
 	------------------------타임어택 구현--------------------------
@@ -226,6 +246,12 @@ function scene:create( event )
 		if currentTime == -1 then
 			 time.alpha = 0
 			if check and check ~= 5 then
+				    -- 게임 실행시 카운트
+					 local gameCount = composer.getVariable( "gameCount" ) or 0
+					 gameCount = gameCount + 1
+					 composer.setVariable( "gameCount", gameCount )
+				
+					 print("게임 실행 횟수 : "..gameCount)
 				-- 실패했을 경우 카운트
 				local failCount = composer.getVariable("failCount") or 0
 				composer.setVariable("failCount", failCount + 1)

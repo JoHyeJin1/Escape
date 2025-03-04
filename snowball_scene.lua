@@ -4,6 +4,9 @@
 --
 -----------------------------------------------------------------------------------------
 
+--------------타이핑 소리 없애기----------
+audio.stop(explosionChannel)
+
 local composer = require( "composer" )
 local ui = require("ui")                --ui.lua 파일 불러오기기
 

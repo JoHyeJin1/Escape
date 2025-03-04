@@ -45,7 +45,7 @@ function scene:create( event )
 		index = index + 1
 
 		if (index > #Radio) then
-			composer.gotoScene("start")
+			composer.gotoScene("quit", { effect = "fade", time = 800 })
 			--composer.removeScene("diag_table")
 			return
 		end

@@ -5,6 +5,8 @@ local choice = {}			-- scene hide 에서도 쓸 거라 전역 선언
 
 function scene:create( event )
 	local sceneGroup = self.view
+	local explosionSound = audio.loadSound("music/effect/GunShots.wav")
+	audio.play(explosionSound)
 	
 	-- BACKGROUND
 	local bg = display.newImage("Image/cutscene/black.png")

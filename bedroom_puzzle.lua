@@ -10,6 +10,10 @@ local scene = composer.newScene()
 function scene:create( event )
 	local sceneGroup = self.view
 
+	audio.pause(backgroundMusicChannel)
+	backgroundMusic = audio.loadStream("music/bgm/minigame.mp3")
+	backgroundMusicChannel = audio.play(backgroundMusic, {loops = -1})
+	audio.setVolume(0.3) ----------볼륨 0~1	
 
 	local background = display.newImageRect("image/bedroom/bedroom_puzzle_bg.png", display.contentWidth, display.contentHeight)
  	background.x, background.y = display.contentWidth/2, display.contentHeight/2
@@ -115,8 +119,20 @@ function scene:create( event )
 		if(time.text =='-1')then
 			time.alpha = 0
 			if lampState ~= "completed" or frameState ~= "completed" or pillowState ~= "completed" then 
+				    -- 게임 실행시 카운트
+					 local gameCount = composer.getVariable( "gameCount" ) or 0
+					 gameCount = gameCount + 1
+					 composer.setVariable( "gameCount", gameCount )
+				
+					 print("게임 실행 횟수 : "..gameCount)
 				composer.gotoScene('bedroom_wrong')
 			else
+				    -- 게임 실행시 카운트
+					 local gameCount = composer.getVariable( "gameCount" ) or 0
+					 gameCount = gameCount + 1
+					 composer.setVariable( "gameCount", gameCount )
+				
+					 print("게임 실행 횟수 : "..gameCount)
 				composer.gotoScene( 'bedroom_completed')
 			end
 		end

@@ -13,6 +13,11 @@ local ui = require("ui")                --ui.lua 파일 불러오기기
 local scene = composer.newScene()
 local fadeRect
 
+-- bgm
+explosionSound = audio.loadSound("music/effect/Keyboard Typing Fast.wav")
+explosionChannel = audio.play(explosionSound, {loops=0})
+audio.setVolume(0.5, {channel = explosionChannel})
+
 -- 깜빡임 효과 함수
 local function blinkEffect()
     transition.to(fadeRect, { time = 1000, alpha = 0.7, onComplete = function()
@@ -28,6 +33,7 @@ local function fadeToBlack()
     -- 2초 후 두 번째 깜빡임 실행
     timer.performWithDelay(2000, function()
         blinkEffect()
+        audio.stop(explosionChannel)
 
         -- 두 번째 깜빡임이 끝난 후 암전 효과 실행 (1.8초 후)
         timer.performWithDelay(1800, function()
@@ -116,11 +122,8 @@ function scene:hide( event )
 	local phase = event.phase
 	
 	if event.phase == "will" then
-		-- Called when the scene is on screen and is about to move off screen
-		--
-		-- INSERT code here to pause the scene
-		-- e.g. stop timers, stop animation, unload sounds, etc.)
-	elseif phase == "did" then
+
+    elseif phase == "did" then
 		-- Called when the scene is now off screen
 	end
 end

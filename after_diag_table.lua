@@ -6,7 +6,7 @@ function scene:create(event)
     -- 오디오 라이브러리
     local currentBGM = backgroundMusicChannel  -- 현재 재생 중인 BGM 저장 변수
     
-    -- sound effect
+    -- sound effect ---------------------------------------------------------------------------------
     local typingSound = audio.loadSound("music/effect/Keyboard Typing Fast.wav")
 
     -- BGM 변경 함수
@@ -151,7 +151,7 @@ function scene:create(event)
 
         content.text = Data[index].dialogue or ""
                 
-        -- 타이핑 효과음 n초 재생
+        -- 타이핑 효과음 n초 재생 ---------------------------------------------------------------------------------
 		local typingChannel = audio.play(typingSound) 
         audio.setVolume(0.3, {channel = typingChannel}) -- 볼륨 30% 설정
 		timer.performWithDelay(2000, function() 

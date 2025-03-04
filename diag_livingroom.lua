@@ -66,7 +66,7 @@ function scene:create( event )
 		-- 타이핑 효과음 n초 재생
 		local typingChannel = audio.play(typingSound) 
         audio.setVolume(0.3, {channel = typingChannel}) -- 볼륨 30% 설정
-		timer.performWithDelay(4000, function() 
+		timer.performWithDelay(2500, function() 
 			audio.stop(typingChannel) 
 		end)
 	end

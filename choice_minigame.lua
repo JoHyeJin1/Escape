@@ -81,11 +81,6 @@ function scene:create(event)
     bulletGroup, bullets = ui.createBullets(sceneGroup)
     sceneGroup:insert(bulletGroup)
 
-    -- -- 총알 아이콘 업데이트
-    -- for i = 1, success do
-        -- bullets[3].fill = { type = "image", filename = "image/UI/bullets/bullets_filled.png" }
-    -- end
-
     
 
 end

@@ -6,6 +6,9 @@ local scene = composer.newScene()
 function scene:create(event)
     local sceneGroup = self.view
 
+    -- sound effect ---------------------------------------------------------------------------------
+    local typingSound = audio.loadSound("music/effect/Keyboard Typing Fast.wav")
+	
 	-- BACKGROUND
 	local bg = display.newImage("Image/cutscene/black.png")
 	bg.x = display.contentCenterX
@@ -93,6 +96,14 @@ function scene:create(event)
             return
         end
         content.text = Data[index]
+        
+    	-- 타이핑 효과음 n초 재생 ---------------------------------------------------------------------------------
+		local typingChannel = audio.play(typingSound) 
+        audio.setVolume(0.3, {channel = typingChannel}) -- 볼륨 30% 설정
+		timer.performWithDelay(3300, function() 
+			audio.stop(typingChannel) 
+		end)
+
     end
 
     -- 💬 대화창 터치 시 대사 출력

@@ -5,11 +5,16 @@ local scene = composer.newScene()
 function scene:create( event )
 	local sceneGroup = self.view
 	----------------bgm-----------------------------
-	audio.pause(backgroundMusicChannel)
+	-- 기존 BGM 정지 (nil 체크 추가)
+    if backgroundMusicChannel then
+        audio.pause(backgroundMusicChannel)
+    end
 	backgroundMusic = audio.loadStream("music/bgm/scene5-6.mp3")
 	backgroundMusicChannel = audio.play(backgroundMusic, {loops = -1})
 	audio.setVolume(0.3) ----------볼륨 0~1
-	
+
+	local typingSound = audio.loadSound("music/effect/Keyboard Typing Fast.wav")
+
 	-- BACKGROUND
 	local bg = {}
 	
@@ -57,7 +62,13 @@ function scene:create( event )
 		end
 
 		content.text = Data[index].dialogue
-
+		
+		-- 타이핑 효과음 n초 재생
+		local typingChannel = audio.play(typingSound) 
+        audio.setVolume(0.3, {channel = typingChannel}) -- 볼륨 30% 설정
+		timer.performWithDelay(2500, function() 
+			audio.stop(typingChannel) 
+		end)
 	end
 	dialogueBox:addEventListener("tap", nextScript)
 	

@@ -6,5 +6,9 @@
     {
         "bg" : "Image/cutscene/black.png",
         "dialogue" : "아아아아.... 흑... 제발..."
+    },
+    {
+        "bg" : "Image/cutscene/ETC.png",
+        "dialogue" : "탕!!!!!!!!!!!!!!!!!!!!!!!!!"
     }
 ]

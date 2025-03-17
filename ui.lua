@@ -1,6 +1,6 @@
 local ui = {}
 
--- 대화창 생성
+-- 대화창 생성  
 function ui.createDialogueBox(sceneGroup)
     local dialogueBox = display.newImage("image/UI/dialogue/dialogue_default.png")
     dialogueBox.x = display.contentCenterX  
@@ -47,9 +47,10 @@ function ui.createBullets(sceneGroup)
     
     for i = 1, 3 do
         bullets[i] = display.newImage("image/UI/bullets/bullets_empty.png")
-        bullets[i].x = display.contentWidth - (i * 100) - 30
-        bullets[i].y = 100
+        bullets[i].x = display.contentWidth - (i * 100) + 10
+        bullets[i].y = 80
         bullets[i].alpha = 1 
+        bullets[i]:scale(0.8, 0.8)
         bulletGroup:insert(bullets[i])
         sceneGroup:insert(bullets[i])
     end

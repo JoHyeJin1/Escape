@@ -9,10 +9,17 @@ local scene = composer.newScene()
 
 function scene:create( event )
 	local sceneGroup = self.view
+	audio.pause(backgroundMusicChannel)
+	backgroundMusic = audio.loadStream("music/bgm/minigame.mp3")
+	backgroundMusicChannel = audio.play(backgroundMusic, {loops = -1})
+	audio.setVolume(0.3) ----------볼륨 0~1	
+
 	local timeAttack
-	local bg = {}
-	bg[1] = display.newImage("image/puzzle/bathroom_puzzle_bg.png")
-	bg[1].x, bg[1].y = display.contentWidth/2, display.contentHeight/2
+
+	
+	local bg = display.newImage("image/puzzle/bathroom_puzzle_bg.png")
+			bg.x, bg.y = display.contentWidth/2, display.contentHeight/2
+
 	
 	local pipeGroupe = display.newGroup()
 	local pipe = {}
@@ -44,6 +51,10 @@ function scene:create( event )
 	pipe[9] = display.newImage(pipeGroupe, "image/puzzle/pipe_1_2.png")
 	pipe[9].x, pipe[9].y = display.contentWidth/2, display.contentHeight/2+180 --중앙 아래
 
+	for i = 1, #pipe do
+		pipeGroupe:insert(pipe[i])
+   end
+
 	local time = display.newText(10, display.contentWidth * 0.9, display.contentHeight * 0.15)
 	time.size = 100
 	time:setFillColor(0)
@@ -68,6 +79,7 @@ function scene:create( event )
 	local flag = display.newText("실패!", display.contentWidth * 0.1, display.contentHeight * 0.15)
 	flag.size = 100
 	flag:setFillColor(0)
+	flag.alpha = 0
 
 	--------------탭하면 돌아가게끔 구현, 돌린 횟수 1씩 증가
 	local function tapPipe(event)
@@ -112,6 +124,7 @@ function scene:create( event )
 
 		if(score == 7) then
 			flag.text = "성공!"
+			flag.alpha = 0
 			time.alpha = 0
 			for i=1,9 do
 				pipe[i]:removeEventListener("tap", tapPipe)
@@ -119,14 +132,24 @@ function scene:create( event )
 			end
 		else
 			flag.text = "실패!"
+			flag.alpha = 0
 		end
+	end
+	local clickSound = audio.loadSound("music/effect/미니게임 클릭음(파이프, 책장).wav")
+	local function playClickSound(event)
+		if event.phase=="began" then
+			audio.play(clickSound)
+		end
+		return true
 	end
 
 	for i=1,9 do
 		pipe[i]:addEventListener("tap", tapPipe)
 		pipe[i]:addEventListener("tap", judge)
+		pipe[i]:addEventListener("touch", playClickSound)
 	end
 
+	local bullet
 	local function counter(event)
 		time.text = time.text - 1
 
@@ -136,18 +159,72 @@ function scene:create( event )
 
 		if(time.text == '-1') then
 			time.alpha = 0
-			-- if(score ~= 5) then
-			-- 	시간 내에 완료하지 못했을 경우 나오는 화면 출력하면 됨
-			-- end
-			for i=1,9 do
-				pipe[i]:removeEventListener("tap", tapPipe)
-				pipe[i]:removeEventListener("tap", judge)
-			end
+			if(flag.text == "실패!") then
+				    -- 게임 실행시 카운트
+					 local gameCount = composer.getVariable( "gameCount" ) or 0
+					 gameCount = gameCount + 1
+					 composer.setVariable( "gameCount", gameCount )
+				
+					 print("게임 실행 횟수 : "..gameCount)
+				
+				-- 실패했을 경우 카운트
+				local failCount = composer.getVariable("failCount") or 0
+				composer.setVariable("failCount", failCount + 1)
+
+				composer.gotoScene( "game_wrong" )
+			else 
+				    -- 게임 실행시 카운트
+					 local gameCount = composer.getVariable( "gameCount" ) or 0
+					 gameCount = gameCount + 1
+					 composer.setVariable( "gameCount", gameCount )
+				
+					 print("게임 실행 횟수 : "..gameCount)
+				-- 성공했을 경우
+				local success = composer.getVariable("success") or 0
+				success = success + 1  -- 값 증가
+				composer.setVariable("success", success)  -- 증가된 값 저장
+				print("성공횟수 : "..success)
+
+				-- 총알 이미지 생성
+				bullet_image = display.newImage("image/UI/bullets/bullets_empty.png")
+				bullet_image.x, bullet_image.y = display.contentWidth*0.5, display.contentHeight*0.6
+				sceneGroup:insert(bullet_image)
+
+				-- 총알 이미지 클릭해서 획득
+				local function onTouch( event )
+				if event.phase == "ended" then 
+				-- 기존 총알 이미지 제거
+					if bullet_image then
+					bullet_image:removeSelf()
+					bullet_image = nil
+					end
+
+					-- 총알 획득하기
+					bullet_image = display.newImage("image/UI/bullets/bullets_filled.png")
+					bullet_image.x, bullet_image.y = display.contentWidth*0.5, display.contentHeight*0.6
+					sceneGroup:insert(bullet_image)
+
+					-- 1초 뒤 씬 이동
+					timer.performWithDelay( 1000, function() 
+					composer.gotoScene('choice_minigame', { effect = "fade", time = 400 })
+					end)
+				end
+				return true
+				end
+				bullet_image:addEventListener("touch", onTouch)
 		end
 
-
+		for i=1,9 do
+			pipe[i]:removeEventListener("tap", tapPipe)
+			pipe[i]:removeEventListener("tap", judge)
+		end
 	end
+end
 	timeAttack = timer.performWithDelay(1000, counter, 11)
+
+	sceneGroup:insert(bg)
+	sceneGroup:insert(pipeGroupe)
+	sceneGroup:insert(flag)
 
 end
 

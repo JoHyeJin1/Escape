@@ -3,7 +3,10 @@ local scene = composer.newScene()
 
 function scene:create( event )
 	local sceneGroup = self.view
-	
+
+	-- sound effect ---------------------------------------------------------------------------------
+    local typingSound = audio.loadSound("music/effect/Keyboard Typing Fast.wav")
+
 	-- BACKGROUND
 	local bg = display.newImage("Image/cutscene/cutscene_8.png")
 	bg.x = display.contentCenterX
@@ -45,8 +48,9 @@ function scene:create( event )
 		index = index + 1
 
 		if (index > #Data) then
-			composer.gotoScene("horror_diag_livingroom")
-			composer.removeScene("diag_table")
+			composer.gotoScene("after_diag_outside")
+			-- composer.removeScene("diag_table")
+			composer.removeScene("diag_outside")
 			return
 		end
 
@@ -55,6 +59,22 @@ function scene:create( event )
 			filename = Data[index].bg
 		}
 		content.text = Data[index].dialogue
+
+		-- 타이핑 효과음 n초 재생 ---------------------------------------------------------------------------------
+		local typingChannel = audio.play(typingSound) 
+        audio.setVolume(0.3, {channel = typingChannel}) -- 볼륨 30% 설정
+		timer.performWithDelay(2500, function() 
+			audio.stop(typingChannel) 
+		end)
+
+		-------------------------------bgm--------------------------
+		if content.text == "살려주세요! 여기 누구 없어요!!!!" then
+			audio.stop(explosionChannel)
+			audio.stop(backgroundMusicChannel)
+			backgroundMusic = audio.loadStream("music/bgm/scene10_11.mp3")
+			backgroundMusicChannel = audio.play(backgroundMusic, {loops=-1})
+			audio.setVolume(0.7)
+		end
 	end
 	
 	dialogueBox:addEventListener("tap", nextScript)
@@ -102,7 +122,7 @@ end
 function scene:destroy( event )
 	local sceneGroup = self.view
 
-	composer.gotoScene("horror_diag_livingroom")
+	-- composer.gotoScene("horror_diag_livingroom")
 	
 	-- Called prior to the removal of scene's "view" (sceneGroup)
 	-- 

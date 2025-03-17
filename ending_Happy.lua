@@ -3,6 +3,11 @@ local scene = composer.newScene()
 
 function scene:create( event )
 	local sceneGroup = self.view
+
+	---------------------bgm--------------------------
+	audio.pause(backgroundMusicChannel)
+	backgroundMusic = audio.loadStream("music/bgm/scene10_11.mp3")
+	backgroundMusicChannel = audio.play(backgroundMusic, {loops=-1})
 	
 	-- BACKGROUND
 	local bg = display.newImage("Image/cutscene/black.png")
@@ -59,14 +64,14 @@ function scene:create( event )
 
 		if (index > #Data) then
             
-			composer.gotoScene("start")
-			--composer.removeScene("diag_table")
+			composer.gotoScene("quit", { effect = "fade", time = 800 })
 			return
 		end
 
 		bg.fill = {
 			type = "image",
-			filename = Data[index].bg
+			filename = Data[index].bg,
+			{effect = "fade", time = 800}
 		}
         ----- 피 묻은 대화창 기본 대화창으로 변경하는 코드 (근데 씬그룹에서 뭐가 이상한지 예 그렇습니다) -----------
 		--  dialogueBox.fill = {
@@ -75,6 +80,13 @@ function scene:create( event )
 		-- }
         note.text = Data[index].text
         content.text = Data[index].dialogue
+
+		if content.text == "제발... 제발 밖으로 보내줘!!!!" then
+			-- local bg = audio.loadStream("music/effect/GunShots.wav")
+			-- local bgc = audio.play(backgroundMusic)
+			explosionSound = audio.loadSound("music/effect/GunShots.wav")
+			audio.play(explosionSound)
+		end
 	end
 	
 	dialogueBox:addEventListener("tap", nextScript)

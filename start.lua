@@ -9,7 +9,24 @@ local scene = composer.newScene()
 
 function scene:create( event )
 	local sceneGroup = self.view
-	
+	----------------bgm-----------------------------
+	backgroundMusic = audio.loadStream("music/bgm/scene1-3.mp3")
+	backgroundMusicChannel = audio.play(backgroundMusic, {loops = -1})
+	audio.setVolume(0.1) ----------볼륨 0~1
+
+	-----------앱 종료시 오디오 리소스 해제
+	local function onAppExit()
+		audio.stop(backgroundMusicChannel)
+		audio.dispose(backgroundMusic)
+		backgroundMusic = nil
+	end
+
+	--------시스템 이벤트 리스너 추가 (앱 종료 시 해제)
+	Runtime:addEventListener("system", function(event)
+   	 if event.type == "applicationExit" then
+      	  onAppExit()
+    	end
+	end)
 	--BackGround
 	local bg = {}
 	bg[1] = display.newImage("image/UI/main title/title_bg.png")
@@ -30,6 +47,7 @@ function scene:create( event )
 	end
 
 	local function onEndButtonTapped( event )
+		audio.pause(backgroundMusicChannel)
 		composer.gotoScene("quit")		-- 나가기 버튼 클릭 시 quit 씬(임시시)으로
 	end
 

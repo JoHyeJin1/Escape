@@ -1,0 +1,22 @@
+[
+	{
+		"bg" : "Image/cutscene/cutscene_9.png",
+		"dialogue" : "이건.. 아니야.... 유리 벽이라고..?",
+		"sound" : "sound/scene10_11.mp3"
+	},
+	{
+		"bg" : "Image/cutscene/cutscene_9.png",
+		"dialogue" : "설마 여기는 이주임님이 주신 스노우볼 안이야..?",
+		"sound" : "sound/scene10_11.mp3"
+	},
+	{
+		"bg" : "Image/main title/title_bg.png",
+		"dialogue" : "이건... 말도 안돼...\n나한테 왜 이러는 건데!!!!",
+		"sound" : "sound/scene10_11.mp3"
+	},
+	{
+		"bg" : "Image/main title/title_bg.png",
+		"dialogue" : "하……. 계속 찾아봐도 유리만 있고 다른 길은 못 찾겠다. 너무 추워서 손발이 다 얼어버릴 것 같아.",
+		"sound" : "sound/scene10_11.mp3"
+	}
+]

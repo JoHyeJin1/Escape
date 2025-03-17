@@ -5,6 +5,11 @@ local choice = {}			-- scene hide 에서도 쓸 거라 전역 선언
 
 function scene:create( event )
 	local sceneGroup = self.view
+	local explosionSound = audio.loadSound("music/effect/GunShots.wav")
+	audio.play(explosionSound)
+
+    -- sound effect ---------------------------------------------------------------------------------
+    local typingSound = audio.loadSound("music/effect/Keyboard Typing Fast.wav")
 	
 	-- BACKGROUND
 	local bg = display.newImage("Image/cutscene/black.png")
@@ -56,6 +61,14 @@ function scene:create( event )
 			filename = Data[index].bg
 		}
 		content.text = Data[index].dialogue
+		
+    	-- 타이핑 효과음 n초 재생 ---------------------------------------------------------------------------------
+		local typingChannel = audio.play(typingSound) 
+        audio.setVolume(0.3, {channel = typingChannel}) -- 볼륨 30% 설정
+		timer.performWithDelay(2000, function() 
+			audio.stop(typingChannel) 
+		end)
+
 	end
 
 	dialogueBox:addEventListener("tap", nextScript)

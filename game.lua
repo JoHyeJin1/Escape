@@ -20,8 +20,6 @@ function onMiniGameFailure()
     ui.updateDialogueBoxImage(dialogueBox, "image/UI/dialogue/dialogue_default.png")
 end
 
--- 총알 테스트용으로 대화창 클릭 이벤트 사용. 미니게임 성공을 어떤 식으로 전달할지는 고민해봐야 함--
-
 -- 대화창 클릭 이벤트 리스너
 local function onDialogueBoxTap(event)
     if event.phase == "ended" then    
@@ -36,17 +34,10 @@ function scene:create(event)
 
     -- #1 회사 씬으로 이동 ---------------------------------------------------------------------------------
     timer.performWithDelay(10, function()
+    	composer.removeScene("game")
         composer.gotoScene("company_scene")
     end)
 
-
-
-
-
-
-
-
-    
     -- 대화창 & 텍스트 생성
     dialogueBox, dialogueText = ui.createDialogueBox(sceneGroup)
 
@@ -63,12 +54,7 @@ function scene:create(event)
     dialogueBox:addEventListener("touch", onDialogueBoxTap)
 
     -- 이것저것. 스토리 진행 & 미니 게임들진행 --
-
-
-
-
-
-
+	
 -- 여기까지 정상 작동 ---------------------------------------------------------------------------------
 -- 여기부턴 큰 틀만 작성성
 

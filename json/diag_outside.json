@@ -8,25 +8,5 @@
 		"bg" : "Image/cutscene/cutscene_8.png",
 		"dialogue" : "제발 누구든 좋으니까 아무나 대답해줘!!!!",
 		"sound" : "sound/scene10_11.mp3"
-	},
-	{
-		"bg" : "Image/main title/title_bg.png",
-		"dialogue" : "이건.. 아니야.... 유리 벽이라고..?",
-		"sound" : "sound/scene10_11.mp3"
-	},
-	{
-		"bg" : "Image/main title/title_bg.png",
-		"dialogue" : "설마 여기는 이주임님이 주신 스노우볼 안이야..?",
-		"sound" : "sound/scene10_11.mp3"
-	},
-	{
-		"bg" : "Image/main title/title_bg.png",
-		"dialogue" : "이건... 말도 안돼...\n나한테 왜 이러는 건데!!!!",
-		"sound" : "sound/scene10_11.mp3"
-	},
-	{
-		"bg" : "Image/main title/title_bg.png",
-		"dialogue" : "아... 밖에 한참 있었더니 너무 춥다.\n이러고 있는다고 해결되는 건 없으니 일단 산장으로 돌아가야겠어.",
-		"sound" : "sound/scene10_11.mp3"
 	}
 ]

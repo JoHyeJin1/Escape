@@ -1,14 +1,14 @@
 [
     {
-        "bg" : "Image/cutscene/black.png",
+        "bg" : "Image/cutscene/ETC2.png",
         "text" : "이미 먹었어?"
     },
     {
-        "bg" : "Image/cutscene/black.png",
+        "bg" : "Image/cutscene/ETC2.png",
         "text" : "넌되돌릴수없어더큰고통을겪기전에제발어서해제발나는여기서평생여기가어디지?아아아름다원여기는언제나행복해즐거워\n여기서나랑평생함께하자여기는즐겁고행복한솜솜산장!살려줘나는행복해!내보내줘집에웃어!제발살려줘제발\n너도곧알게될거야여긴정말좋은곳인걸걱정할필요없어여기서행복해지는법은없어차라리너도금방알게될거야우리랑같이놀자\n웃어웃어웃어웃어웃어웃어웃어나는행복해!아하하하하"
     },
     {
-        "bg" : "Image/cutscene/black.png",
+        "bg" : "Image/cutscene/ETC2.png",
         "text" : "하하하하하하하하하하하하하하하하하하하"
     }
 ]
